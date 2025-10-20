@@ -1,0 +1,249 @@
+/**
+ * Top level layout and variables
+ * ------------------------------------
+*/
+html {
+  font-size: 1rem;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 2.5rem 1fr;
+  min-height: 100vh;
+}
+
+body>main {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 1.5rem;
+}
+
+/**
+ * Header
+ * ------------------------------------
+*/
+body>header {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0.1rem;
+  background: var(--red-accent);
+  height: var(--header-height);
+}
+
+body>header menu button.outline {
+  border: none;
+  margin-inline: 0.25rem;
+}
+
+.stack {
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.stack p {
+  margin: 0;
+}
+
+.stack small {
+  font-style: italic;
+}
+
+/**
+ * Side Navbar
+ * ------------------------------------
+ */
+body>aside {
+  grid-column: 1;
+  grid-row: 1 / row2-end;
+  background-color: var(--off-white);
+  box-shadow: 1.5rem 0px 3rem -1.5rem rgba(0, 0, 0, 0.1);
+}
+
+nav li:first-child {
+  height: var(--header-height);
+  background: #c60c30;
+  padding: 0.4rem;
+  display: flex;
+  justify-content: center;
+}
+
+nav li:first-child a {
+  height: var(--header-height);
+  display: flex;
+}
+
+nav li:first-child img {
+  place-self: center;
+  width: 90%;
+}
+
+nav ul {
+  margin: 0 !important;
+}
+
+nav a {
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--pico-h1-color)
+}
+
+nav a:hover,
+nav a:focus {
+  background-color: var(--off-white-alt);
+  text-decoration: none;
+}
+
+.currentPage {
+  background-color: var(--red-accent);
+}
+
+/**
+ * Button Menus
+ * ------------------------------------
+*/
+menu {
+  list-style-type: none;
+  margin: 0;
+  margin-inline: 0.4rem;
+  height: 100%;
+  display: flex;
+}
+
+menu p {
+  margin: 0.25rem;
+}
+
+menu li {
+  margin-inline: 0.1rem;
+  align-content: center;
+}
+
+menu button {
+  padding: 0;
+}
+
+
+/**
+ * Tables
+ * ------------------------------------
+ */
+.scroll-table {
+  height: 30rem;
+  overflow-y: scroll;
+  border: 1px solid;
+  border-color: #eee;
+  overscroll-behavior: none;
+  border-radius: var(--pico-border-radius);
+}
+
+.scroll-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tbody {
+  font-size: 0.85rem;
+}
+
+td {
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) td {
+  background-color: var(--off-white-alt);
+}
+
+
+/**
+ * Forms
+ * ------------------------------------
+ */
+form .grid>label,
+form .grid>input {
+  align-content: center;
+  margin-bottom: 0;
+}
+
+form .grid>input[type="checkbox"] {
+  margin: 1rem;
+}
+
+form .grid>select {
+  margin: 8px 8px 0px 8px;
+}
+
+.result {
+  margin-top: 1rem;
+}
+
+.result input {
+  background: var(--blue-accent-muted);
+  color: var(--dark-grey);
+}
+
+input {
+  margin: 0.5rem;
+}
+
+input:not([disabled]) {
+  border: 1px solid var(--blue-accent);
+}
+
+input[type="submit"] {
+  margin-top: 2rem;
+  background: var(--blue-accent);
+}
+
+input[type="reset"] {
+  margin-top: 2rem;
+  background: var(--red-accent);
+}
+
+/* For Chrome, Safari, Edge, and Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/**
+ * Cards (articles)
+ * ------------------------------------
+ */
+article {
+  border-top: 3px solid var(--blue-accent);
+}
+
+/**
+ * Utility Classes
+ * ------------------------------------
+ */
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.empty {
+  background: none;
+}
+
+.tabbed {
+  padding-left: 2em;
+}
+
+.outline {
+  stroke: var(--pico-h1-color);
+}

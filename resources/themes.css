@@ -1,0 +1,44 @@
+:root {
+  --header-height: 3rem;
+
+  --pico-border-radius: 0.3rem;
+  --pico-spacing: 1.5rem;
+
+  --red-accent: #981e32;
+  --red-accent-muted: oklch(from var(--red-accent) l calc(c * 0.5) h);
+  --blue-accent: #3c8dbc;
+  --blue-accent-muted: oklch(from var(--blue-accent) calc(l * 1.25) calc(c * 0.75) h);
+  --off-white: #fbf7f5;
+  --off-white-alt: #edeae8;
+  --dark-grey: #222d32;
+}
+
+.scroll-table {
+  --pico-background-color: #fffcfc;
+  --off-white-alt: #faf7f7;
+}
+
+[data-theme=light],
+:root:not([data-theme=dark]),
+:host:not([data-theme=dark]) {
+  --pico-background-color: var(--off-white);
+  --pico-card-sectioning-background-color: var(--off-white);
+  --pico-contrast: var(--off-white);
+  --pico-contrast-background: var(--off-white);
+  --pico-contrast-inverse: var(--pico-h1-color);
+  --pico-contrast-hover: #e6e6e6;
+  --pico-contrast-hover-background: #e6e6e6;
+  --pico-box-shadow: 0rem 1.5rem 1.5rem 0rem rgba(187, 189, 193, 0.59);
+}
+
+/* Orange color for dark color scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+
+  :root:not([data-theme]),
+  :host:not([data-theme]) {}
+}
+
+/* Orange color for dark color scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme=dark] {}
