@@ -4,6 +4,8 @@
 */
 html {
   font-size: 1rem;
+  --hamburger-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='matrix(-1, 0, 0, -1, 0, 0)'%3E%3Cg stroke-width='0'%3E%3C/g%3E%3Cg stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg %3E%3Cpath d='M4 18L20 18' stroke='%23141414' stroke-width='2' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M4 12L20 12' stroke='%23141414' stroke-width='2' stroke-linecap='round'%3E%3C/path%3E%3Cpath d='M4 6L20 6' stroke='%23141414' stroke-width='2' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  --close-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath d='M16 8L8 16M8 8L16 16' stroke='%23141414' stroke-width='2' stroke-linecap='round'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
 }
 
 body {
@@ -19,6 +21,10 @@ body>main {
   padding: 1.5rem;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
 /**
  * Header
  * ------------------------------------
@@ -29,6 +35,7 @@ body>header {
   padding: 0.1rem;
   background: var(--red-accent);
   height: var(--header-height);
+  padding: 0;
 }
 
 body>header menu button.outline {
@@ -51,6 +58,8 @@ body>header menu button.outline {
   font-style: italic;
 }
 
+
+
 /**
  * Side Navbar
  * ------------------------------------
@@ -60,6 +69,18 @@ body>aside {
   grid-row: 1 / row2-end;
   background-color: var(--off-white);
   box-shadow: 1.5rem 0px 3rem -1.5rem rgba(0, 0, 0, 0.1);
+}
+
+header button[popovertarget] {
+  display: none;
+  cursor: pointer;
+  margin: 0.5rem;
+  background-color: var(--off-white);
+  border: none;
+  height: 2em;
+  aspect-ratio: 1;
+  cursor: pointer;
+  mask-image: var(--hamburger-icon);
 }
 
 nav li:first-child {
@@ -99,6 +120,61 @@ nav a:focus {
 .currentPage {
   background-color: var(--red-accent);
 }
+
+@media (max-width: 1200px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2.5rem 1fr;
+
+  }
+
+  body>header {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body>main {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  header button[popovertarget] {
+    display: revert;
+  }
+
+  aside[popover]:popover-open {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    opacity: 1;
+    transform: translateX(0);
+    backdrop-filter: blur(3px);
+  }
+
+  aside[popover] {
+    /* picocss override */
+    display: revert;
+    height: 100%;
+    border: none;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    transform: translateX(-100%);
+    transition: all 0.7s allow-discrete;
+  }
+
+  aside:not([popover]) {
+    display: none;
+  }
+
+  @starting-style {
+    aside[popover]:popover-open {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+}
+
 
 /**
  * Button Menus
@@ -246,4 +322,10 @@ article {
 
 .outline {
   stroke: var(--pico-h1-color);
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
