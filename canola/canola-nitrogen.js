@@ -71,7 +71,7 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
           <label><strong> A: N supply needed to meet yield goal </strong></label>
           <div class="grid">
             <label for="yield">1. Estimate yield (lbs canola/Ac)</label>
-            <input type="number" id="yield" name="yield">
+            <input type="number" step="any" id="yield" name="yield">
           </div>
           <div class="grid">
             <label for="unr">2. UNR (lbs N/100 lbs canola)</label>
@@ -84,7 +84,7 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
           <label><strong>B: Soil N inventory </strong></label>
           <div class="grid">
             <label for="test-nitrate">1. Nitrate from Soil Test (lbs N/Ac)</label>
-            <input type="number" id="test-nitrate" name="test-nitrate">
+            <input type="number" step="any" id="test-nitrate" name="test-nitrate">
           </div>
           <div class="grid">
             <label for="preceeding-crop-type">2. Preceeding crop type</label>
@@ -107,7 +107,7 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
           </div>
           <div class="grid">
             <label for="som">3. Soil Organic Matter (%)</label>
-            <input type="number" id="som" name="som" min="0" max="100">
+            <input type="number" step="any" id="som" name="som" min="0" max="100">
           </div>
           <div class="grid tabbed">
             <label for="till">&mdash; Do you till? </label>
@@ -119,7 +119,7 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
           </div>
           <div class="grid">
             <label for="other-source">4. Other credits (lbs/Ac)</label>
-            <input type="number" id="other-source" name="other-source" value="0">
+            <input type="number" step="any" id="other-source" name="other-source" value="0">
           </div>
           <div class="grid">
             <label for="total-n">5. Total N</label>

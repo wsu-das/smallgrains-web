@@ -50,7 +50,7 @@ customElements.define("fertilizer-calc", class extends HTMLElement {
         <form>
           <div class="grid">
             <label for="yield">Step 1: Estimate yield (lbs/Ac)</label>
-            <input type="number" id="yield" name="yield">
+            <input type="number" step="any" id="yield" name="yield">
           </div>
           <div class="grid">
             <label for="unr">Step 2: UNR (lbs N/100 lbs canola)</label>
@@ -65,11 +65,11 @@ customElements.define("fertilizer-calc", class extends HTMLElement {
           </div>
           <div class="grid">
             <label for="test-nitrate" class="tabbed">a. Nitrate from Soil Test (lbs/Ac)</label>
-            <input type="number" id="test-nitrate" name="test-nitrate">
+            <input type="number" step="any" id="test-nitrate" name="test-nitrate">
           </div>
           <div class="grid">
             <label for="test-ammonium" class="tabbed">b. Ammonium from Soil Test (lbs/Ac)</label>
-            <input type="number" id="test-ammonium" name="test-ammonium">
+            <input type="number" step="any" id="test-ammonium" name="test-ammonium">
           </div>
           <div class="grid">
             <label for="test-mineralized" class="tabbed">c. Mineralized from Soil Test (lbs/Ac)</label>
@@ -77,7 +77,7 @@ customElements.define("fertilizer-calc", class extends HTMLElement {
           </div>
           <div class="grid">
             <label for="som" class="tabbed">— Soil Organic Matter (%)</label>
-            <input type="number" id="som" name="som">
+            <input type="number" step="any" id="som" name="som" min="0" max="100">
           </div>
           <div class="grid">
             <label for="till" class="tabbed">— Do you till? </label>
