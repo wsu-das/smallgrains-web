@@ -12,7 +12,7 @@ The exception to this is the larger variety selection tool, which lives elsewher
 | ❌      | Seeding Rate Converter           | Awaiting Excel sheet for reference                                                                   |
 | ✅      | Spring Canola Nitrogen Rate      |                                                                                                      |
 | ❌      | Post-Harvest Nitrogen Efficiency |                                                                                                      |
-| 🚧      | Straw Removal                    | Currently WIP                                                                                        |
+| ✅      | Straw Removal                    | Needs clarification on "CCE/CEC(?)" units                                                            |
 
 ## Development details
 This is a dead-simple static website, and as such it is being hosted on GitHub Pages to save us the infrastructural headache of putting it on our own VPS.
