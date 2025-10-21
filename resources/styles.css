@@ -173,6 +173,10 @@ nav a:focus {
       transform: translateX(-100%);
     }
   }
+
+  form .grid {
+    margin-bottom: 1em;
+  }
 }
 
 
@@ -242,6 +246,10 @@ form .grid>label,
 form .grid>input {
   align-content: center;
   margin-bottom: 0;
+}
+
+form label>strong {
+  margin-top: 1em;
 }
 
 form .grid>input[type="checkbox"] {
@@ -327,5 +335,6 @@ article {
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: 1fr;
+    grid-row-gap: 0;
   }
 }
