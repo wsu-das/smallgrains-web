@@ -242,6 +242,36 @@ tbody tr:nth-child(even) td {
  * Forms
  * ------------------------------------
  */
+
+article form {
+  column-gap: var(--pico-grid-column-gap);
+  columns: 2;
+}
+
+article form>* {
+  column-span: all;
+}
+
+form>section {
+  break-inside: avoid;
+  column-span: revert;
+}
+
+.grid:has(> *:nth-child(2)) article form {
+  columns: 1;
+}
+
+@media (max-width: 1200px) {
+  article form {
+    columns: 1;
+  }
+
+  article form .grid {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0;
+  }
+}
+
 form .grid>label,
 form .grid>input {
   align-content: center;
@@ -330,11 +360,4 @@ article {
 
 .outline {
   stroke: var(--pico-h1-color);
-}
-
-@media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: 1fr;
-    grid-row-gap: 0;
-  }
 }

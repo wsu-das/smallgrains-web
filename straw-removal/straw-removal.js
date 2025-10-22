@@ -181,210 +181,204 @@ customElements.define("straw-removal", class extends HTMLElement {
       <article>
         <header>Straw Removal Calculator </header>
         <form>
-          <div class="grid">
-            <div>
-              <section id="part-a">
-                <label><strong> A: Estimate grain and straw yield from available moisture </strong></label>
+          <section id="part-a">
+            <label><strong> A: Estimate grain and straw yield from available moisture </strong></label>
+            <div class="grid">
+              <label for="water">1. Available water (in)</label>
+              <input type="number" step="any" id="water" name="water">
+            </div>
+            <div class="grid">
+              <label for="unr">2. Variety </label>
+              <select name="variety" id="variety">
+                ${
+                  Object.entries(this.harvest_indices).map(([key, val]) => {return `
+                    <option value="${val}">${key}</option>
+                  `}).join("")    
+                }
+              </select>
+            </div>
+            <div class="grid">
+              <label for="straw-harvest-percent">3. Straw harvest (%)</label>
+              <input
+                type="number"
+                step="any"
+                id="straw-harvest-percent"
+                name="straw-harvest-percent"
+                min="0"
+                max="100"
+              >
+            </div>
+            <div class="grid">
+              <label for="grain-yield">4. Grain yield (bu/Ac)</label>
+              <input type="number" id="grain-yield" name="grain-yield" disabled>
+            </div>
+            <div class="grid">
+              <label for="straw-yield">5. Straw yield (Ton/Ac)</label>
+              <input type="number" id="straw-yield" name="straw-yield" disabled>
+            </div>
+          </section>
+          <section id="part-b">
+            <label><strong> B: Estimate Nutrient Removal </strong></label>
+            ${
+              Object.entries(this.default_nutrient_params).map(([key, val], idx) => {return `
                 <div class="grid">
-                  <label for="water">1. Available water (in)</label>
-                  <input type="number" step="any" id="water" name="water">
-                </div>
-                <div class="grid">
-                  <label for="unr">2. Variety </label>
-                  <select name="variety" id="variety">
-                    ${
-                      Object.entries(this.harvest_indices).map(([key, val]) => {return `
-                        <option value="${val}">${key}</option>
-                      `}).join("")    
-                    }
-                  </select>
-                </div>
-                <div class="grid">
-                  <label for="straw-harvest-percent">3. Straw harvest (%)</label>
+                  <label for="${key}-concentration">${idx+1}a. ${key} Concentration (lbs/lb)</label>
                   <input
                     type="number"
                     step="any"
-                    id="straw-harvest-percent"
-                    name="straw-harvest-percent"
-                    min="0"
-                    max="100"
+                    id="${key}-concentration"
+                    name="${key}-concentration"
+                    value=${val.concentration_lb_per_lb}
                   >
                 </div>
                 <div class="grid">
-                  <label for="grain-yield">4. Grain yield (bu/Ac)</label>
-                  <input type="number" id="grain-yield" name="grain-yield" disabled>
-                </div>
-                <div class="grid">
-                  <label for="straw-yield">5. Straw yield (Ton/Ac)</label>
-                  <input type="number" id="straw-yield" name="straw-yield" disabled>
-                </div>
-              </section>
-              <section id="part-c">
-                <label><strong> C: Estimate Cation Removal </strong></label>
-                ${
-                  Object.entries(this.default_cation_params).map(([key, val], idx) => {return `
-                    <div class="grid">
-                      <label for="${key}-concentration">${idx+1} ${key} Concentration (lbs/lb)</label>
-                      <input
-                        type="number"
-                        step="any"
-                        id="${key}-concentration"
-                        name="${key}-concentration"
-                        value=${val.concentration_lb_per_lb}
-                      >
-                    </div>
-                    <div class="grid tabbed">
-                      <label for="${key}-removal">&mdash; Removal (lbs/Ac)</label>
-                      <input type="number" id="${key}-removal" name="${key}-removal" disabled>
-                    </div>
-                    <div class="grid tabbed">
-                      <label for="${key}-cec">&mdash; Cation Removal (${cec}/Ac)</label>
-                      <input type="number" id="${key}-cec" name="${key}-cec" disabled>
-                    </div>
-                  `}).join("")
-                }
-                <div class="grid">
-                  <label for="total-cec-removal">
-                    ${Object.entries(this.default_cation_params).length+1}. Total CEC Removal (${cec}/Ac)
-                  </label>
-                  <input type="number" id="total-cec-removal" name="total-cec-removal" disabled>
-                </div>
-                <div class="grid">
-                  <label for="liming-material">
-                    ${Object.entries(this.default_cation_params).length+2}. Liming Material
-                  </label>
-                  <select name="liming-material" id="liming-material">
-                    ${
-                      Object.entries(this.liming_materials_cec).map(([key, val]) => {return `
-                        <option value="${val}">${key}</option>
-                      `})
-                    }
-                  </select>
-                </div>
-                <div class="grid tabbed">
-                  <label for="liming-material-cec"> &mdash; Liming Material Strength (${cec}) </label>
-                  <input type="number" id="liming-material-cec" name="liming-material-cec" disabled>
-                </div>
-                <div class="grid">
-                  <label for="liming-material-price">
-                    ${Object.entries(this.default_cation_params).length+3}. Liming Material Price ($/ton)
-                  </label>
+                  <label for="${key}-price">${idx+1}b. ${key} Price ($/lb)</label>
                   <input
                     type="number"
                     step="any"
-                    id="liming-material-price"
-                    name="liming-material-price"
-                    value="${this.liming_materials_price_usd_per_ton}"
+                    id="${key}-price"
+                    name="${key}-price"
+                    value=${val.cost_usd_per_lb}
                   >
                 </div>
-                <div class="grid">
-                  <label for="cation-removal-cost">
-                    ${Object.entries(this.default_cation_params).length+4}. Total Cation Removal Cost ($/Ac)
-                  </label>
-                  <input type="number" id="cation-removal-cost" name="cation-removal-cost" disabled>
-                </div>
-              </section>
-              <section id="part-e">
-                <label><strong> E: Final Balance </strong></label>
-                <div class="grid">
-                  <label for="straw-sale-price">1. Straw Sale Price ($/Ton) </label>
-                  <input type="number" step="any" id="straw-sale-price" name="straw-sale-price" value="60">
+                <div class="grid tabbed">
+                  <label for="${key}-removal">&mdash; Removal (lbs/Ac)</label>
+                  <input type="number" id="${key}-removal" name="${key}-removal" disabled>
                 </div>
                 <div class="grid tabbed">
-                  <label for="straw-revenue">&mdash; Estimated Straw revenue ($/Ac) </label>
-                  <input type="number" step="any" id="straw-revenue" name="straw-revenue" disabled>
+                  <label for="${key}-cost">&mdash; Cost ($/Ac)</label>
+                  <input type="number" id="${key}-cost" name="${key}-cost" disabled>
                 </div>
-                <div class="grid">
-                  <label for="operating-costs">2. Operating Costs ($/Ac) </label>
-                  <input type="number" step="any" id="operating-costs" name="operating-costs" value="40">
-                </div>
-                <div class="grid">
-                  <label for="removal-related-costs">3. Removal-related Costs ($/Ac) </label>
-                  <input type="number" step="any" id="removal-related-costs" name="removal-related-costs" disabled>
-                </div>
-                <div class="grid result">
-                  <label for="profit">4. Net Profit ($/Ac) </label>
-                  <input type="number" step="any" id="profit" name="profit" readonly>
-                </div>
-                <div class="grid result">
-                  <label for="soc-status">5. SOC Status </label>
-                  <input type="text" step="any" id="soc-status" name="soc-status" readonly>
-                </div>
-              </section>
+              `}).join("")
+            }
+            <div class="grid">
+              <label for="nutrient-removal-cost">
+                ${Object.entries(this.default_nutrient_params).length+1}. Total Nutrient Removal Cost (lbs/Ac)
+              </label>
+              <input type="number" id="nutrient-removal-cost" name="nutrient-removal-cost" disabled>
             </div>
-            <div>
-              <section id="part-b">
-                <label><strong> B: Estimate Nutrient Removal </strong></label>
+          </section>
+          <section id="part-c">
+            <label><strong> C: Estimate Cation Removal </strong></label>
+            ${
+              Object.entries(this.default_cation_params).map(([key, val], idx) => {return `
+                <div class="grid">
+                  <label for="${key}-concentration">${idx+1} ${key} Concentration (lbs/lb)</label>
+                  <input
+                    type="number"
+                    step="any"
+                    id="${key}-concentration"
+                    name="${key}-concentration"
+                    value=${val.concentration_lb_per_lb}
+                  >
+                </div>
+                <div class="grid tabbed">
+                  <label for="${key}-removal">&mdash; Removal (lbs/Ac)</label>
+                  <input type="number" id="${key}-removal" name="${key}-removal" disabled>
+                </div>
+                <div class="grid tabbed">
+                  <label for="${key}-cec">&mdash; Cation Removal (${cec}/Ac)</label>
+                  <input type="number" id="${key}-cec" name="${key}-cec" disabled>
+                </div>
+              `}).join("")
+            }
+            <div class="grid">
+              <label for="total-cec-removal">
+                ${Object.entries(this.default_cation_params).length+1}. Total CEC Removal (${cec}/Ac)
+              </label>
+              <input type="number" id="total-cec-removal" name="total-cec-removal" disabled>
+            </div>
+            <div class="grid">
+              <label for="liming-material">
+                ${Object.entries(this.default_cation_params).length+2}. Liming Material
+              </label>
+              <select name="liming-material" id="liming-material">
                 ${
-                  Object.entries(this.default_nutrient_params).map(([key, val], idx) => {return `
-                    <div class="grid">
-                      <label for="${key}-concentration">${idx+1}a. ${key} Concentration (lbs/lb)</label>
-                      <input
-                        type="number"
-                        step="any"
-                        id="${key}-concentration"
-                        name="${key}-concentration"
-                        value=${val.concentration_lb_per_lb}
-                      >
-                    </div>
-                    <div class="grid">
-                      <label for="${key}-price">${idx+1}b. ${key} Price ($/lb)</label>
-                      <input
-                        type="number"
-                        step="any"
-                        id="${key}-price"
-                        name="${key}-price"
-                        value=${val.cost_usd_per_lb}
-                      >
-                    </div>
-                    <div class="grid tabbed">
-                      <label for="${key}-removal">&mdash; Removal (lbs/Ac)</label>
-                      <input type="number" id="${key}-removal" name="${key}-removal" disabled>
-                    </div>
-                    <div class="grid tabbed">
-                      <label for="${key}-cost">&mdash; Cost ($/Ac)</label>
-                      <input type="number" id="${key}-cost" name="${key}-cost" disabled>
-                    </div>
-                  `}).join("")
+                  Object.entries(this.liming_materials_cec).map(([key, val]) => {return `
+                    <option value="${val}">${key}</option>
+                  `})
                 }
-                <div class="grid">
-                  <label for="nutrient-removal-cost">
-                    ${Object.entries(this.default_nutrient_params).length+1}. Total Nutrient Removal Cost (lbs/Ac)
-                  </label>
-                  <input type="number" id="nutrient-removal-cost" name="nutrient-removal-cost" disabled>
-                </div>
-              </section>
-              <section id="part-d">
-                <label><strong> D: Soil Organic Carbon Removal </strong></label>
-                <div class="grid">
-                  <label for="cropping-system">1. Cropping System</label>
-                  <select name="cropping-system" id="cropping-system">
-                    ${
-                      Object.entries(this.msc_lbsC_per_ac).map(([key, val]) => {return `
-                        <option value="${val}">${key}</option>
-                      `})
- }
-                  </select>
-                </div>
-                <div class="grid tabbed">
-                  <label for="c-maintenance">&mdash; Maintenance C (lbs/Ac)</label>
-                  <input type="number" id="c-maintenance" name="c-maintenance" disabled>
-                </div>
-                <div class="grid">
-                  <label for="c-concentration">2. C Concentration</label>
-                  <input type="number" step="any" id="c-concentration" name="c-concentration" value="0.45">
-                </div>
-                <div class="grid tabbed">
-                  <label for="c-straw-removal">&mdash; C Removed from Straw (lbs/Ac)</label>
-                  <input type="number" id="c-straw-removal" name="c-straw-removal" disabled>
-                </div>
-                <div class="grid tabbed">
-                  <label for="c-remaining">&mdash; C Remaining (lbs/Ac)</label>
-                  <input type="number" id="c-remaining" name="c-remaining" disabled>
-                </div>
-              </section>
+              </select>
             </div>
-          </div>
+            <div class="grid tabbed">
+              <label for="liming-material-cec"> &mdash; Liming Material Strength (${cec}) </label>
+              <input type="number" id="liming-material-cec" name="liming-material-cec" disabled>
+            </div>
+            <div class="grid">
+              <label for="liming-material-price">
+                ${Object.entries(this.default_cation_params).length+3}. Liming Material Price ($/ton)
+              </label>
+              <input
+                type="number"
+                step="any"
+                id="liming-material-price"
+                name="liming-material-price"
+                value="${this.liming_materials_price_usd_per_ton}"
+              >
+            </div>
+            <div class="grid">
+              <label for="cation-removal-cost">
+                ${Object.entries(this.default_cation_params).length+4}. Total Cation Removal Cost ($/Ac)
+              </label>
+              <input type="number" id="cation-removal-cost" name="cation-removal-cost" disabled>
+            </div>
+          </section>
+          <section id="part-d">
+            <label><strong> D: Soil Organic Carbon Removal </strong></label>
+            <div class="grid">
+              <label for="cropping-system">1. Cropping System</label>
+              <select name="cropping-system" id="cropping-system">
+                ${
+                  Object.entries(this.msc_lbsC_per_ac).map(([key, val]) => {return `
+                    <option value="${val}">${key}</option>
+                  `})
+                }
+              </select>
+            </div>
+            <div class="grid tabbed">
+              <label for="c-maintenance">&mdash; Maintenance C (lbs/Ac)</label>
+              <input type="number" id="c-maintenance" name="c-maintenance" disabled>
+            </div>
+            <div class="grid">
+              <label for="c-concentration">2. C Concentration</label>
+              <input type="number" step="any" id="c-concentration" name="c-concentration" value="0.45">
+            </div>
+            <div class="grid tabbed">
+              <label for="c-straw-removal">&mdash; C Removed from Straw (lbs/Ac)</label>
+              <input type="number" id="c-straw-removal" name="c-straw-removal" disabled>
+            </div>
+            <div class="grid tabbed">
+              <label for="c-remaining">&mdash; C Remaining (lbs/Ac)</label>
+              <input type="number" id="c-remaining" name="c-remaining" disabled>
+            </div>
+          </section>
+          <section id="part-e">
+            <label><strong> E: Final Balance </strong></label>
+            <div class="grid">
+              <label for="straw-sale-price">1. Straw Sale Price ($/Ton) </label>
+              <input type="number" step="any" id="straw-sale-price" name="straw-sale-price" value="60">
+            </div>
+            <div class="grid tabbed">
+              <label for="straw-revenue">&mdash; Estimated Straw revenue ($/Ac) </label>
+              <input type="number" step="any" id="straw-revenue" name="straw-revenue" disabled>
+            </div>
+            <div class="grid">
+              <label for="operating-costs">2. Operating Costs ($/Ac) </label>
+              <input type="number" step="any" id="operating-costs" name="operating-costs" value="40">
+            </div>
+            <div class="grid">
+              <label for="removal-related-costs">3. Removal-related Costs ($/Ac) </label>
+              <input type="number" step="any" id="removal-related-costs" name="removal-related-costs" disabled>
+            </div>
+            <div class="grid result">
+              <label for="profit">4. Net Profit ($/Ac) </label>
+              <input type="number" step="any" id="profit" name="profit" readonly>
+            </div>
+            <div class="grid result">
+              <label for="soc-status">5. SOC Status </label>
+              <input type="text" step="any" id="soc-status" name="soc-status" readonly>
+            </div>
+          </section>
           <div class="grid">
             <input type="submit" value="Calculate" />
             <input type="reset" value="Reset" />
