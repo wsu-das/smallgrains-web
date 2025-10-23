@@ -24,6 +24,7 @@ customElements.define("das-sg-shell", class extends HTMLElement {
         </li>
         <li> <a hx-boost="true" id="variety-selector" href="/variety-selector">Variety Selector</a></li>
         <li> <a hx-boost="true" id="nitrogen-fertilizer" href="/nitrogen">Nitrogen Fertilizer</a></li>
+        <li> <a hx-boost="true" id="postharvest-n" href="/postharvest-n">Post-Harvest Nitrogen</a></li>
         <li> <a hx-boost="true" id="lime-requirement" href="/lime">Lime Requirement</a></li>
         <li> <a hx-boost="true" id="spring-canola" href="/canola">Spring Canola</a></li>
         <li> <a hx-boost="true" id="straw-removal" href="/straw-removal">Straw Removal</a></li>
