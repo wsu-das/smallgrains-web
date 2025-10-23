@@ -11,7 +11,7 @@ The exception to this is the larger variety selection tool, which lives elsewher
 | ❌      | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
 | ❌      | Seeding Rate Converter           | Awaiting Excel sheet for reference                                                                   |
 | ✅      | Spring Canola Nitrogen Rate      |                                                                                                      |
-| ❌      | Post-Harvest Nitrogen Efficiency |                                                                                                      |
+| ✅      | Post-Harvest Nitrogen Efficiency |                                                                                                      |
 | ✅      | Straw Removal                    | Needs clarification on "CCE/CEC(?)" units                                                            |
 
 ## Development details
