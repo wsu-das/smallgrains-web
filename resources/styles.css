@@ -244,7 +244,7 @@ tbody tr:nth-child(even) td {
  */
 
 article form {
-  column-gap: var(--pico-grid-column-gap);
+  column-gap: calc(var(--pico-grid-column-gap) * 2);
   columns: 2;
 }
 

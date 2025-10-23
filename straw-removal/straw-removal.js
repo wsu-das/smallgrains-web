@@ -176,7 +176,7 @@ customElements.define("straw-removal", class extends HTMLElement {
   }
     
   connectedCallback() {
-    const cec = html`<i data-tooltip="Cation Exchange Capacity">CEC</i>`;
+    const cec = html`<abbr title="Cation Exchange Capacity" data-tooltip="Cation Exchange Capacity">CEC</abbr>`;
     this.insertAdjacentHTML("afterbegin", html`
       <article>
         <header>Straw Removal Calculator </header>
@@ -263,7 +263,7 @@ customElements.define("straw-removal", class extends HTMLElement {
             ${
               Object.entries(this.default_cation_params).map(([key, val], idx) => {return `
                 <div class="grid">
-                  <label for="${key}-concentration">${idx+1} ${key} Concentration (lbs/lb)</label>
+                  <label for="${key}-concentration">${idx+1}. ${key} Concentration (lbs/lb)</label>
                   <input
                     type="number"
                     step="any"
