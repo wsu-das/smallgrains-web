@@ -5,7 +5,7 @@ The exception to this is the larger variety selection tool, which lives elsewher
 **Currently implemented calculators:**
 | Status | Name                             | Notes                                                                                                |
 |--------|----------------------------------|------------------------------------------------------------------------------------------------------|
-| 🚧      | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
+| ✅      | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
 | ✅      | Nitrogen Fertilizer              |                                                                                                      |
 | 🚧      | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
 | ❌      | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
