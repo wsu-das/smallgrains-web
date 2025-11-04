@@ -13,14 +13,6 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
       "Soft white winter wheat": {lbsN_per_bushel: 2.7, bu_per_inch: 7,   n_uptake_factor: 0.15},
     };
 
-    // this.no3_n_multiplier = {
-    //   "0 - 1' NO3 -N":        3.5,
-    //   "Sum of 0 - 2' NO3 -N": 3.5,
-    //   "Sum of 0 - 3' NO3 -N": 3.5,
-    //   "Sum of 0 - 4' NO3 -N": 3.5,
-    //   "Sum of 0 - 5' NO3 -N": 3.5,
-    //   "Sum of 0 - 6' NO3 -N": 3.5,
-    // };
     this.no3_coef = 3.5;
     this.nh4_coef = 3.5;
 
@@ -70,7 +62,7 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
     // Part B
     const nitrate_type = formdata.get("nitrate-test-type");
     const nitrate_value = formdata.get("nitrate-value");
-    const nitrate_credit = nitrate_value * (nitrate_type === "ppm" ? this.no3_coef : 1);
+    const nitrate_credit = nitrate_value * (nitrate_type !== "lb_ac" ? this.no3_coef : 1);
     const ammonium_type = formdata.get("ammonium-test-type");
     const ammonium_value = formdata.get("ammonium-value");
     const ammonium_credit = ammonium_value * (ammonium_type === "ppm" ? this.nh4_coef : 1);
@@ -102,21 +94,19 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
     form["residual-n"].value = residual_n;
 
     // Part D
+    const no3_depth_note = nitrate_type === "ppm_shallow" ?
+      `\u2014 Soil test for residual nitrate-nitrogen should go to a depth of 4 feet for spring cereals; 6 feet for winter cereals \n\n` :
+      ``;
     const n_balance_note = n_efficiency >= 5 ?
-      `\u2014 A large amount of nitrogen may have been left in the field.
-        Soil sample prior to next crop to assess residual nitrate nitrogen. \n` :
-      `\u2014Nitrogen balance exceeds 50% which indicates better than average
-        uptake efficiency and nitrogen management practices. \n`
+      `\u2014 A large amount of nitrogen may have been left in the field. Soil sample prior to next crop to assess residual nitrate nitrogen. \n\n` :
+      `\u2014 Nitrogen balance exceeds 50% which indicates better than average uptake efficiency and nitrogen management practices. \n\n`;
     const nitrate_residue_note = nitrate_credit >= 100 ?
-      `\u2014 A large amount of residual nitrate-nitrogen was left from the previous crop;
-        Verify yield goal and nitrogen supply calculations to ensure accuracy \n` :
+      `\u2014 A large amount of residual nitrate-nitrogen was left from the previous crop; Verify yield goal and nitrogen supply calculations to ensure accuracy \n\n` :
       ``;
     const n_wheat_ratio_note = n_wheat_ratio >= crop.lbsN_per_bushel ?
-      `\u2014 lb N/bushel produced is worse than average.
-        Lower application rates, split applications or a more accurate yield goal
-        estimate is needed. \n` :
-      `\u2014 lb N/bushel produced is better than average! \n`;
-    const merged_note = n_balance_note + nitrate_residue_note + n_wheat_ratio_note;
+      `\u2014 lb N/bushel produced is worse than average. Lower application rates, split applications or a more accurate yield goal estimate is needed. \n\n` :
+      `\u2014 lb N/bushel produced is better than average! \n\n`;
+    const merged_note = n_balance_note + nitrate_residue_note + n_wheat_ratio_note + no3_depth_note;
     form["note"].value = merged_note;
   }
     
@@ -172,7 +162,8 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
             <div class="grid tabbed">
               <label for="nitrate-test-type">&mdash; Test unit</label>
               <select name="nitrate-test-type" id="nitrate-test-type">
-                <option value="ppm">Concentration in PPM</option>
+                <option value="ppm_shallow">Concentration in PPM &le; 3ft</option>
+                <option value="ppm">Concentration in PPM &gt; 3ft</option>
                 <option value="lb_ac">lb/Ac Credit</option>
               </select>
             </div>
