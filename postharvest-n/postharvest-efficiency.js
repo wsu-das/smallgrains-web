@@ -162,8 +162,8 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
             <div class="grid tabbed">
               <label for="nitrate-test-type">&mdash; Test unit</label>
               <select name="nitrate-test-type" id="nitrate-test-type">
-                <option value="ppm_shallow">Concentration in PPM &le; 3ft</option>
-                <option value="ppm">Concentration in PPM &gt; 3ft</option>
+                <option value="ppm_shallow">PPM, 0' to &le; 3' depth</option>
+                <option value="ppm">PPM, 0' to &gt; 3' depth</option>
                 <option value="lb_ac">lb/Ac Credit</option>
               </select>
             </div>
@@ -175,7 +175,7 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
             <div class="grid tabbed">
               <label for="ammonium-test-type">&mdash; Test unit</label>
               <select name="ammonium-test-type" id="ammonium-test-type">
-                <option value="ppm">Concentration in PPM</option>
+                <option value="ppm">PPM</option>
                 <option value="lb_ac">lb/Ac Credit</option>
               </select>
             </div>
