@@ -40,7 +40,7 @@ customElements.define("seeding-rate", class extends HTMLElement {
   connectedCallback() {
     this.insertAdjacentHTML("afterbegin", html`
       <article>
-        <header>Nitrogen Fertilizer Calculator </header>
+        <header>Seeding Rate Calculator </header>
         <form>
           <div class="grid">
             <label for="seeds-per-lb">1. Seeds per pound </label>
