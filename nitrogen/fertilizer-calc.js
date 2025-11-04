@@ -88,7 +88,7 @@ customElements.define("fertilizer-calc", class extends HTMLElement {
             <input type="number" id="total-n" name="total-n" disabled>
           </div>
           <div class="grid result">
-            <label for="required-n">Step 5: Required fertilizer N (lbs/Ac)</label>
+            <label for="fertilizer-n">Step 5: Required fertilizer N (lbs/Ac)</label>
             <input type="number" id="fertilizer-n" name="fertilizer-n" readonly>
           </div>
           <div class="grid">

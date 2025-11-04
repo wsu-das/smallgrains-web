@@ -5,14 +5,21 @@ The exception to this is the larger variety selection tool, which lives elsewher
 **Currently implemented calculators:**
 | Status | Name                             | Notes                                                                                                |
 |--------|----------------------------------|------------------------------------------------------------------------------------------------------|
-| 🚧      | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
-| ✅      | Nitrogen Fertilizer              |                                                                                                      |
-| 🚧      | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
-| ❌      | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
-| ❌      | Seeding Rate Converter           | Awaiting Excel sheet for reference                                                                   |
-| ✅      | Spring Canola Nitrogen Rate      |                                                                                                      |
-| ✅      | Post-Harvest Nitrogen Efficiency |                                                                                                      |
-| ✅      | Straw Removal                    | Needs clarification on "CCE/CEC(?)" units                                                            |
+| 🚧     | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
+| ✅     | Nitrogen Fertilizer              |                                                                                                      |
+| 🚧     | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
+| ❌     | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
+| ❌     | Seeding Rate Converter           | Awaiting Excel sheet for reference                                                                   |
+| ✅     | Spring Canola Nitrogen Rate      |                                                                                                      |
+| ✅     | Post-Harvest Nitrogen Efficiency |                                                                                                      |
+| ✅     | Straw Removal                    | Needs clarification on "CCE/CEC(?)" units                                                            |
+
+**Other to-do**
+| Status | Name                                                | Notes |
+|--------|-----------------------------------------------------|-------|
+| ❌     | Trim first-load down to sub 14kb                    |       |
+| ❌     | Move most `head` elements into a web-component      |       |
+| ❌     | hamburger `aside>nav` for full-width layout         |       |
 
 ## Development details
 This is a dead-simple static website, and as such it is being hosted on GitHub Pages to save us the infrastructural headache of putting it on our own VPS.
