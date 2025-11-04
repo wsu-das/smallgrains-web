@@ -19,15 +19,16 @@ customElements.define("das-sg-shell", class extends HTMLElement {
 
     const links = html`
       <ul>
-        <li hx-boost="true" id="variety-selector" href="/">
+        <li id="variety-selector" href="/">
           <img src="/resources/img/das-us-logo-white-45h.png" alt="" href="" i="">
         </li>
-        <li> <a hx-boost="true" id="variety-selector" href="/variety-selector">Variety Selector</a></li>
-        <li> <a hx-boost="true" id="nitrogen-fertilizer" href="/nitrogen">Nitrogen Fertilizer</a></li>
-        <li> <a hx-boost="true" id="postharvest-n" href="/postharvest-n">Post-Harvest Nitrogen</a></li>
-        <li> <a hx-boost="true" id="lime-requirement" href="/lime">Lime Requirement</a></li>
-        <li> <a hx-boost="true" id="spring-canola" href="/canola">Spring Canola</a></li>
-        <li> <a hx-boost="true" id="straw-removal" href="/straw-removal">Straw Removal</a></li>
+        <li> <a id="variety-selector" href="/variety-selector">Variety Selector</a></li>
+        <li> <a id="nitrogen-fertilizer" href="/nitrogen">Nitrogen Fertilizer</a></li>
+        <li> <a id="postharvest-n" href="/postharvest-n">Post-Harvest Nitrogen</a></li>
+        <li> <a id="lime-requirement" href="/lime">Lime Requirement</a></li>
+        <li> <a id="spring-canola" href="/canola">Spring Canola</a></li>
+        <li> <a id="straw-removal" href="/straw-removal">Straw Removal</a></li>
+        <li> <a id="seeding-rate" href="/seeding-rate">Seeding Rate</a></li>
       </ul>
     `;
     
