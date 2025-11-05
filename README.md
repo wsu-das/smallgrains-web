@@ -20,7 +20,8 @@ The exception to this is the larger variety selection tool, which lives elsewher
 |--------|-----------------------------------------------------|-------|
 | ❌     | Trim first-load down to sub 14kb                    |       |
 | ❌     | Move most `head` elements into a web-component      |       |
-| ❌     | hamburger `aside>nav` for full-width layout         |       |
+| ❌     | Hamburger `aside>nav` for full-width layout         |       |
+| ❌     | Find a way to move info out of tooltips for a11y    |       |
 
 ## Development details
 This is a dead-simple static website, and as such it is being hosted on GitHub Pages to save us the infrastructural headache of putting it on our own VPS.
@@ -31,11 +32,11 @@ through the code you will find that there are no
 - jQuery
 - Bootstrap
 - Tailwind
-- etc
+- etc.
 
 and it would be preferable if it stayed that way!  
 
-This project is both a rescue operation for the small grains calculators and an experiement in designing front-ends with modern web standards, using the
+This project is both a rescue operation for the small grains calculators and an experiment in designing front-ends with modern web standards, using the
 best new options available to us in plain ol' HTML, CSS, and JavaScript in all browsers (IE doesn't count!). The most important of these is Web Components.
 This isn't even a particularly _new_ feature, per se, and to be honest it can be a contentious one among frontend devs. I understand their concerns, and
 respectfully I think they're wrong, stemming from the obsessive addiction to overcomplicated website design. I also think that Mozilla has done a lot of
