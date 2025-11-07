@@ -3,16 +3,16 @@ This repository hosts the fully-rewritten version of WSU CAHNRS's Small Grains c
 The exception to this is the larger variety selection tool, which lives elsewhere but it `iframe'd` into this website for convenience.  
 
 **Currently implemented calculators:**
-| Status | Name                             | Notes                                                                                                |
-|--------|----------------------------------|------------------------------------------------------------------------------------------------------|
+| Status | Name                              | Notes                                                                                                |
+|--------|-----------------------------------|------------------------------------------------------------------------------------------------------|
 | ✅      | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
 | ✅      | Nitrogen Fertilizer              |                                                                                                      |
-| 🚧      | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
+| ✅      | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
 | ❌      | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
-| ❌      | Seeding Rate Converter           | Awaiting Excel sheet for reference                                                                   |
+| ✅      | Seeding Rate Converter           |                                                                                                      |
 | ✅      | Spring Canola Nitrogen Rate      |                                                                                                      |
 | ✅      | Post-Harvest Nitrogen Efficiency |                                                                                                      |
-| ✅      | Straw Removal                    | Needs clarification on "CCE/CEC(?)" units                                                            |
+| ✅      | Straw Removal                    | Needs clarification on "CCE/CEC(?)" unit, also hide nutrient prices in a `details`                   |
 | ✅      | Seeding Rate                     |                                                                                                      |
 
 **Other to-do**
