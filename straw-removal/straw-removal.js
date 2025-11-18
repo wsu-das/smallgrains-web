@@ -62,20 +62,20 @@ customElements.define("straw-removal", class extends HTMLElement {
     }
 
     this.default_nutrient_params = {
-      "N":    {concentration_lb_per_lb: 0.00642,   cost_usd_per_lb: 0.50},
-      "P2O5": {concentration_lb_per_lb: 0.00092,   cost_usd_per_lb: 1.50},
-      "S":    {concentration_lb_per_lb: 0.0006,    cost_usd_per_lb: 0.40},
-      "Zn":   {concentration_lb_per_lb: 0.0001115, cost_usd_per_lb: 1.00},
-      "B":    {concentration_lb_per_lb: 0.000622,  cost_usd_per_lb: 1.00},
+      "N":                          {concentration_lb_per_lb: 0.00642,   cost_usd_per_lb: 0.50},
+      "P<sub>2</sub>O<sub>5</sub>": {concentration_lb_per_lb: 0.00092,   cost_usd_per_lb: 1.50},
+      "S":                          {concentration_lb_per_lb: 0.0006,    cost_usd_per_lb: 0.40},
+      "Zn":                         {concentration_lb_per_lb: 0.0001115, cost_usd_per_lb: 1.00},
+      "B":                          {concentration_lb_per_lb: 0.000622,  cost_usd_per_lb: 1.00},
     }
 
     this.default_cation_params = {
-      "K2O": {concentration_lb_per_lb: 0.014,  coef_lb_to_cec: (50/94)},
-      "Ca":  {concentration_lb_per_lb: 0.012,  coef_lb_to_cec: (100/40)},
-      "Mg":  {concentration_lb_per_lb: 0.0087, coef_lb_to_cec: (100/24)},
+      "K<sub>2</sub>O": {concentration_lb_per_lb: 0.014,  coef_lb_to_cce: (50/94)},
+      "Ca":             {concentration_lb_per_lb: 0.012,  coef_lb_to_cce: (100/40)},
+      "Mg":             {concentration_lb_per_lb: 0.0087, coef_lb_to_cce: (100/24)},
     }
 
-    this.liming_materials_cec = {
+    this.liming_materials_cce = {
       "Calcium Carbonate": 1.00,
       "Calcitic Limestone": 0.97,
       "Dolomitic Limestone": 1.05,
@@ -114,43 +114,43 @@ customElements.define("straw-removal", class extends HTMLElement {
     const straw_harvest_percent = formdata.get("straw-harvest-percent");
     const straw_yield_ton_per_ac = straw_prod_kg_per_ha * conv_2 * (straw_harvest_percent / 100);
 
-    form["grain-yield"].value = Math.round(grain_yield_bu_per_ac);
-    form["straw-yield"].value = straw_yield_ton_per_ac.toFixed(2);
+    form["grain-yield"].value = grain_yield_bu_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 0});
+    form["straw-yield"].value = straw_yield_ton_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
 
     // Part B
     let nutrient_cost_usd_per_ac = 0;
     Object.keys(this.default_nutrient_params).forEach((key, idx) => {
-      const concentration = formdata.get(key+"-concentration");
+      const concentration = this.default_nutrient_params[key].concentration_lb_per_lb;
       const price_usd_per_lb = formdata.get(key+"-price");
 
       const removed_lb_per_ac = straw_yield_ton_per_ac * concentration * 2000;
       const cost_usd_per_ac = removed_lb_per_ac * price_usd_per_lb;
       nutrient_cost_usd_per_ac += cost_usd_per_ac;
-      form[key+"-removal"].value = removed_lb_per_ac;
-      form[key+"-cost"].value = cost_usd_per_ac;
+      form[key+"-removal"].value = removed_lb_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 1});
+      form[key+"-cost"].value = cost_usd_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
     });
-    form["nutrient-removal-cost"].value = nutrient_cost_usd_per_ac;
+    form["nutrient-removal-cost"].value = nutrient_cost_usd_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
 
     // Part C
-    let total_cation_removal_cec = 0;
+    let total_cation_removal_cce = 0;
     Object.entries(this.default_cation_params).forEach(([key, val], idx) => {
-      const concentration = formdata.get(key+"-concentration");
+      const concentration = this.default_cation_params[key].concentration_lb_per_lb;
 
       const removed_lb_per_ac = straw_yield_ton_per_ac * concentration * 2000;
-      const removed_cec_per_ac = removed_lb_per_ac * val.coef_lb_to_cec;
-      total_cation_removal_cec += removed_cec_per_ac;
-      form[key+"-removal"].value = removed_lb_per_ac;
-      form[key+"-cec"].value = removed_cec_per_ac;
+      const removed_cce_per_ac = removed_lb_per_ac * val.coef_lb_to_cce;
+      total_cation_removal_cce += removed_cce_per_ac;
+      form[key+"-removal"].value = removed_lb_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 1});
+      form[key+"-cce"].value = removed_cce_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
     });
-    form["total-cec-removal"].value = total_cation_removal_cec;
-    const cec_concentration = formdata.get("liming-material");
-    form["liming-material-cec"].value = cec_concentration;
+    form["total-cce-removal"].value = total_cation_removal_cce.toLocaleString(undefined, {'maximumFractionDigits': 0});
+    const cce_concentration = formdata.get("liming-material");
+    form["liming-material-cce"].value = cce_concentration.toLocaleString(undefined, {'maximumFractionDigits': 0});
     const liming_price_usd_per_ton = formdata.get("liming-material-price");
     const cation_removal_cost_usd_per_ac = (
-      ((total_cation_removal_cec / cec_concentration)/2000) *
+      ((total_cation_removal_cce / cce_concentration)/2000) *
       liming_price_usd_per_ton
     ) + 10 // application cost per Ac
-    form["cation-removal-cost"].value = cation_removal_cost_usd_per_ac;
+    form["cation-removal-cost"].value = cation_removal_cost_usd_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
 
     // Part D
     const msc = formdata.get("cropping-system");
@@ -158,25 +158,25 @@ customElements.define("straw-removal", class extends HTMLElement {
     const c_concentration = formdata.get("c-concentration");
     const c_straw_removal = c_concentration * straw_yield_ton_per_ac * 2000;
     const c_remaining = (c_straw_removal/((straw_harvest_percent/100))) - c_straw_removal;
-    form["c-straw-removal"].value = c_straw_removal;
-    form["c-remaining"].value = c_remaining;
+    form["c-straw-removal"].value = c_straw_removal.toLocaleString(undefined, {'maximumFractionDigits': 0});
+    form["c-remaining"].value = c_remaining.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     // Part E
     const straw_price_usd_per_ton = formdata.get("straw-sale-price");
     const straw_revenue_usd_per_ac = straw_price_usd_per_ton * straw_yield_ton_per_ac;
-    form["straw-revenue"].value = straw_revenue_usd_per_ac;
+    form["straw-revenue"].value = straw_revenue_usd_per_ac.toLocaleString(undefined, {'maximumFractionDigits': 2});
     const operating_costs = formdata.get("operating-costs");
     const removal_related_costs = cation_removal_cost_usd_per_ac + nutrient_cost_usd_per_ac;
-    form["removal-related-costs"].value = removal_related_costs;
-    const profit = straw_revenue_usd_per_ac - operating_costs - removal_related_costs;
-    form["profit"].value = profit;
+    form["removal-related-costs"].value = removal_related_costs.toLocaleString(undefined, {'maximumFractionDigits': 2});
+    const profit = straw_revenue_usd_per_ac - operating_costs - removal_related_costs.toLocaleString(undefined, {'maximumFractionDigits': 2});
+    form["profit"].value = profit.toLocaleString(undefined, {'maximumFractionDigits': 2});
     form["soc-status"].value = (c_remaining >= c_straw_removal) ?
                                 "Above SOC Maintenance Level" :
                                 "Below SOC Maintenance Level";
   }
     
   connectedCallback() {
-    const cec = html`<abbr title="Cation Exchange Capacity" data-tooltip="Cation Exchange Capacity">CEC</abbr>`;
+    const cce = html`<abbr title="Calcium Carbonate Equivalent (Ton)" data-tooltip="Calcium Carbonate Equivalent (Ton)">CCE</abbr>`;
     this.insertAdjacentHTML("afterbegin", html`
       <article>
         <header>Straw Removal Calculator </header>
@@ -222,17 +222,7 @@ customElements.define("straw-removal", class extends HTMLElement {
             ${
               Object.entries(this.default_nutrient_params).map(([key, val], idx) => {return `
                 <div class="grid">
-                  <label for="${key}-concentration">${idx+1}a. ${key} Concentration (lbs/lb)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    id="${key}-concentration"
-                    name="${key}-concentration"
-                    value=${val.concentration_lb_per_lb}
-                  >
-                </div>
-                <div class="grid">
-                  <label for="${key}-price">${idx+1}b. ${key} Price ($/lb)</label>
+                  <label for="${key}-price">${idx+1} ${key} Price ($/lb)</label>
                   <input
                     type="number"
                     step="any"
@@ -262,31 +252,22 @@ customElements.define("straw-removal", class extends HTMLElement {
             <label><strong> C: Estimate Cation Removal </strong></label>
             ${
               Object.entries(this.default_cation_params).map(([key, val], idx) => {return `
-                <div class="grid">
-                  <label for="${key}-concentration">${idx+1}. ${key} Concentration (lbs/lb)</label>
-                  <input
-                    type="number"
-                    step="any"
-                    id="${key}-concentration"
-                    name="${key}-concentration"
-                    value=${val.concentration_lb_per_lb}
-                  >
-                </div>
+                <p>${idx+1}. ${key}</p>
                 <div class="grid tabbed">
                   <label for="${key}-removal">&mdash; Removal (lbs/Ac)</label>
                   <input type="number" id="${key}-removal" name="${key}-removal" disabled>
                 </div>
                 <div class="grid tabbed">
-                  <label for="${key}-cec">&mdash; Cation Removal (${cec}/Ac)</label>
-                  <input type="number" id="${key}-cec" name="${key}-cec" disabled>
+                  <label for="${key}-cce">&mdash; Cation Removal (${cce}/Ac)</label>
+                  <input type="number" id="${key}-cce" name="${key}-cce" disabled>
                 </div>
               `}).join("")
             }
             <div class="grid">
-              <label for="total-cec-removal">
-                ${Object.entries(this.default_cation_params).length+1}. Total CEC Removal (${cec}/Ac)
+              <label for="total-cce-removal">
+                ${Object.entries(this.default_cation_params).length+1}. Total CCE Removal (${cce}/Ac)
               </label>
-              <input type="number" id="total-cec-removal" name="total-cec-removal" disabled>
+              <input type="number" id="total-cce-removal" name="total-cce-removal" disabled>
             </div>
             <div class="grid">
               <label for="liming-material">
@@ -294,15 +275,15 @@ customElements.define("straw-removal", class extends HTMLElement {
               </label>
               <select name="liming-material" id="liming-material">
                 ${
-                  Object.entries(this.liming_materials_cec).map(([key, val]) => {return `
+                  Object.entries(this.liming_materials_cce).map(([key, val]) => {return `
                     <option value="${val}">${key}</option>
                   `})
                 }
               </select>
             </div>
             <div class="grid tabbed">
-              <label for="liming-material-cec"> &mdash; Liming Material Strength (${cec}) </label>
-              <input type="number" id="liming-material-cec" name="liming-material-cec" disabled>
+              <label for="liming-material-cce"> &mdash; Liming Material Strength (${cce}) </label>
+              <input type="number" id="liming-material-cce" name="liming-material-cce" disabled>
             </div>
             <div class="grid">
               <label for="liming-material-price">

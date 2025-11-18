@@ -76,22 +76,22 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
                           som_credit +
                           legume_credit -
                           cereal_debit;
-    form["n-supply"].value = soil_n_supply;
-    const fertilizer_reccomendation = larger_removal - soil_n_supply;
-    form["n-fertilizer"].value = fertilizer_reccomendation;
+    form["n-supply"].value = soil_n_supply.toLocaleString(undefined, {'maximumFractionDigits': 0});
+    const fertilizer_recomendation = larger_removal - soil_n_supply;
+    form["n-fertilizer"].value = fertilizer_recomendation.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     // Part C
     const true_yield = +formdata.get("ph-yield");
     const protein = +formdata.get("protein");
     const n_fertilizer_applied = +formdata.get("n-fertilizer-applied");
     const n_uptake = true_yield * protein * crop.n_uptake_factor;
-    form["n-uptake"].value = n_uptake;
+    form["n-uptake"].value = n_uptake.toLocaleString(undefined, {'maximumFractionDigits': 0});
     const n_efficiency = (n_uptake / (soil_n_supply +n_fertilizer_applied)) * 100;
-    form["n-efficiency"].value = n_efficiency;
+    form["n-efficiency"].value = n_efficiency.toLocaleString(undefined, {'maximumFractionDigits': 1});
     const n_wheat_ratio = (soil_n_supply + n_fertilizer_applied) / true_yield;
-    form["n-wheat-ratio"].value = n_wheat_ratio;
+    form["n-wheat-ratio"].value = n_wheat_ratio.toLocaleString(undefined, {'maximumFractionDigits': 1});
     const residual_n = n_fertilizer_applied + soil_n_supply - n_uptake;
-    form["residual-n"].value = residual_n;
+    form["residual-n"].value = residual_n.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     // Part D
     const no3_depth_note = nitrate_type === "ppm_shallow" ?
@@ -104,7 +104,7 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
       `\u2014 A large amount of residual nitrate-nitrogen was left from the previous crop; Verify yield goal and nitrogen supply calculations to ensure accuracy \n\n` :
       ``;
     const n_wheat_ratio_note = n_wheat_ratio >= crop.lbsN_per_bushel ?
-      `\u2014 lb N/bushel produced is worse than average. Lower application rates, split applications or a more accurate yield goal estimate is needed. \n\n` :
+      `\u2014 lb N/bushel produced is lower than average. Lower application rates, split applications or a more accurate yield goal estimate is needed. \n\n` :
       `\u2014 lb N/bushel produced is better than average! \n\n`;
     const merged_note = n_balance_note + nitrate_residue_note + n_wheat_ratio_note + no3_depth_note;
     form["note"].value = merged_note;
@@ -222,7 +222,7 @@ customElements.define("postharvest-efficiency", class extends HTMLElement {
               <input type="number" step="any" id="n-supply" name="n-supply" disabled>
             </div>
             <div class="grid result">
-              <label for="n-fertilizer">6: Fertilizer Nitrogen Reccomendation</label>
+              <label for="n-fertilizer">6: Fertilizer Nitrogen Recomendation</label>
               <input type="number" step="any" id="n-fertilizer" name="n-fertilizer" readonly>
             </div>
           </section>

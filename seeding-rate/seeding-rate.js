@@ -32,7 +32,7 @@ customElements.define("seeding-rate", class extends HTMLElement {
     const rate_unit = formdata.get("rate-unit");
     const rate = formdata.get("rate");
     Object.entries(this.mappings[rate_unit]).forEach(([unit, f]) => {
-      form[unit].value = Math.round(f(seeds_per_lb, germ_percent, rate)).toLocaleString();
+      form[unit].value = f(seeds_per_lb, germ_percent, rate).toLocaleString(undefined, {'maximumFractionDigits': 0});
     })
     
   }
@@ -53,9 +53,9 @@ customElements.define("seeding-rate", class extends HTMLElement {
           <div class="grid">
             <label for="rate-unit">3. Targeted seed rate unit </label>
             <select name="rate-unit" id="rate-unit">
-              <option value="lbs-per-ac">Lbs/Ac</option>
-              <option value="seeds-per-sqft">Seeds/sqft</option>
-              <option value="seeds-per-ac">Seeds/Ac</option>
+              <option value="lbs-per-ac">lbs/Ac</option>
+              <option value="seeds-per-sqft">seeds/sqft</option>
+              <option value="seeds-per-ac">seeds/Ac</option>
             </select>
           </div>
           <div class="grid">

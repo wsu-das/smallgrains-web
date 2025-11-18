@@ -16,7 +16,7 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
       2600: 7.3
     };
     // N lb/A
-    this.preceeding_crop = {
+    this.preceding_crop = {
       peas_gt_2500: 20,
       peas_bt_1500_2500: 15,
       peas_lt_1500: 10,
@@ -45,14 +45,14 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
     const unr = this.less_than_map(formdata.get("yield"), this.unr_lookup);
     form['unr'].value = unr;
 
-    const required_n = unr * formdata.get("yield");
+    const required_n = unr * formdata.get("yield") / 100;
     form['required-n'].value = required_n;
 
-    const crop_credit = this.preceeding_crop[formdata.get("preceeding-crop-type")]
-    form['preceeding-crop-balance'].value = crop_credit;
+    const crop_credit = this.preceding_crop[formdata.get("preceding-crop-type")]
+    form['preceding-crop-balance'].value = crop_credit.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     const som_n = formdata.get("som") * (formdata.get("till") ? 17 : 20);
-    form['som-n'].value = som_n;
+    form['som-n'].value = som_n.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     const total_n = crop_credit +
                     som_n +
@@ -87,8 +87,8 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
             <input type="number" step="any" id="test-nitrate" name="test-nitrate">
           </div>
           <div class="grid">
-            <label for="preceeding-crop-type">2. Preceeding crop type</label>
-            <select name="preceeding-crop-type" id="precceeding-crop-type">
+            <label for="preceding-crop-type">2. Preceding crop type</label>
+            <select name="preceding-crop-type" id="precceeding-crop-type">
               <option value="peas_gt_2500"> Peas &gt; 2500 lbs/Ac </option>
               <option value="peas_bt_1500_2500"> Peas 1500-2500 lbs/Ac </option>
               <option value="peas_lt_1500"> Peas &lt; 1500 lbs/Ac </option>
@@ -102,8 +102,8 @@ customElements.define("canola-nitrogen", class extends HTMLElement {
             </select>
           </div>
           <div class="grid tabbed">
-            <label for="preceeding-crop-balance">&mdash; Preceeding crop debit/credit</label>
-            <input type="number" name="preceeding-crop-balance" id="preceeding-crop-balance" disabled>
+            <label for="preceding-crop-balance">&mdash; Preceding crop debit/credit</label>
+            <input type="number" name="preceding-crop-balance" id="preceding-crop-balance" disabled>
           </div>
           <div class="grid">
             <label for="som">3. Soil Organic Matter (%)</label>
