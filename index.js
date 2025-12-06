@@ -1,3 +1,7 @@
+window.indexExports = {
+  html
+}
+// 
 // for now this just hints some editors to do HTML syntax highlighting
 // in the future we can replace this with an HTML sanitizer to prevent XSS
 export function html(strings, ...values) {

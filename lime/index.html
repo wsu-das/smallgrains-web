@@ -13,6 +13,57 @@
   <script src="/lime/lime.js" type="module"></script>
   <script>
     document.documentElement.setAttribute('data-theme', 'light');
+    const swap_calc = (calc_name) => {
+      const article = document.querySelector("#main-calc");
+      const calc = document.createElement(calc_name);
+      article.replaceChildren(calc);
+      article.insertAdjacentHTML("afterbegin", window.indexExports.html`
+        <header>Liming Requirement estimate</header>
+        <label for="method-selector"> Calculation method: </label>
+        <select name="method-selector" id="method-selector">
+          <option value="mehlich-calc"> Mehlich Buffer pH </option>
+          <option value="soilom-excal"> Soil Organic Matter and Exchangeable Aluminum </option>
+          <option value="soilom-ph"> Soil Organic Matter and soil pH </option>
+          <option value="smp-ph"> SMP Buffer pH </option>
+          <option value="base-saturation"> Base Saturation (BS) Method </option>
+          <option value="reserve-acidity"> Reserve (Potential) Acidity </option>
+        </select>
+      `);
+      const selector = article.querySelector("#method-selector");
+      selector.value = calc_name;
+      selector.addEventListener("change", function (event) {
+        swap_calc(event.target.value);
+      })
+      calc.querySelector("form").insertAdjacentHTML("beforeend", window.indexExports.html`
+        <div class="grid">
+          <label for="depth">
+            <span data-tooltip="For example, if sampling from 0 to 3 in (or 3 to 6 in), enter 3">
+              Sample Depth (in)
+            </span>
+          </label>
+          <input type="number" step="any" id="depth" name="depth" value=6>
+        </div>
+        <div class="grid">
+          <label for="lime-cce">
+            <span data-tooltip="Effective Calcium Carbonate Equivalent (or CCE) of the lime material to be applied">
+              Liming Material CCE (%)
+            </span>
+          </label>
+          <input type="number" step="any" id="lime-cce" name="lime-cce" min="0" max="100" required>
+        </div>
+        <div class="grid result">
+          <label for="lre-adj">Depth-Adjusted LRE (lb/Ac) </label>
+          <input type="text" id="lre-adj" name="lre-adj" readonly>
+        </div>
+        <div class="grid">
+          <input type="submit" value="Calculate" />
+          <input type="reset" value="Reset" />
+        </div>
+      `);
+    }
+    window.addEventListener("load", function () {
+      swap_calc("mehlich-calc");
+    });
   </script>
 
 </head>
@@ -23,7 +74,8 @@
 
   <main>
     <div class="grid">
-      <mehlich-calc></mehlich-calc>
+      <article id="main-calc">
+      </article>
       <div class="empty"></div>
     </div>
   </main>

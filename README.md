@@ -7,7 +7,7 @@ The exception to this is the larger variety selection tool, which lives elsewher
 |--------|-----------------------------------|------------------------------------------------------------------------------------------------------|
 | ✅      | Variety Selection Tool `iframe`  | The site currently blocks being rendered inside another website. Need to get added to the whitelist. |
 | ✅      | Nitrogen Fertilizer              |                                                                                                      |
-| ✅      | Lime Requirement Estimate        | Excel sheet is locked, awaiting unlocked version to work from                                        |
+| ✅      | Lime Requirement Estimate        |                                                                                                      |
 | ❌      | Residue Production Calculator    | Awaiting Excel sheet for reference                                                                   |
 | ✅      | Seeding Rate Converter           |                                                                                                      |
 | ✅      | Spring Canola Nitrogen Rate      |                                                                                                      |
@@ -18,7 +18,7 @@ The exception to this is the larger variety selection tool, which lives elsewher
 **Other to-do**
 | Status | Name                                                | Notes |
 |--------|-----------------------------------------------------|-------|
-| ❌     | Trim first-load down to sub 14kb                    |       |
+| ❌     | Trim first-load down to sub 14KB                    |       |
 | ❌     | Move most `head` elements into a web-component      |       |
 | ❌     | Hamburger `aside>nav` for full-width layout         |       |
 | ❌     | Find a way to move info out of tooltips for a11y    |       |

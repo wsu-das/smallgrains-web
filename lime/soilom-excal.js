@@ -1,18 +1,18 @@
 import { html } from "../index.js";
 import { adjust_lre } from "./lime.js";
 
-customElements.define("mehlich-calc", class extends HTMLElement {
+customElements.define("soilom-excal", class extends HTMLElement {
   handleSubmit(event) {
     event.preventDefault();
-    
     const form = event.target;
     const formdata = new FormData(form);
 
-    const ph = formdata.get("ph");
+    const om = formdata.get("om");
+    const al = formdata.get("al");
 
-    const soil_ac = Math.max((6.6-ph)/(0.25), 0)
-    form["soil-ac"].value = soil_ac.toFixed(1);
-    const lre = (0.446 * ((0.1 * (soil_ac**2)) + soil_ac) * 2000);
+    const lre = Math.max(0,
+      ((-2170.7)+(1715.3*om)+(14.94*al)) * (0.892179)
+    ) * 0.9906;
     form["lre"].value = lre.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     adjust_lre(lre, form, formdata);
@@ -22,12 +22,21 @@ customElements.define("mehlich-calc", class extends HTMLElement {
     this.insertAdjacentHTML("afterbegin", html`
       <form>
         <div class="grid">
-          <label for="ph"> Mehlich Buffer pH </label>
-          <input type="number" step="any" id="ph" name="ph">
+          <label for="om">
+            <span data-tooltip="if OM is in g/kg divide by 10 for percentage">
+              Soil Organic Matter (%)
+            </span>
+
+          </label>
+          <input type="number" step="any" id="om" name="om" min="0" max="100">
         </div>
         <div class="grid">
-          <label for="soil-ac">Soil Acidity (meq / 100 cm<sup>3</sup>) </label>
-          <input type="number" step="any" id="soil-ac" name="soil-ac" disabled>
+          <label for="al">
+            <span data-tooltip="if Al is in meq/100g (cmolc/kg) multiply by 90 for ppm">
+              Exchangeable Aluminum (ppm)
+            </span>
+          </label>
+          <input type="number" step="any" id="al" name="al" min="0">
         </div>
         <div class="grid">
           <label for="lre">Liming Requirement Estimate (lb/Ac) </label>

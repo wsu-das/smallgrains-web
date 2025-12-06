@@ -1,18 +1,18 @@
 import { html } from "../index.js";
 import { adjust_lre } from "./lime.js";
 
-customElements.define("mehlich-calc", class extends HTMLElement {
+customElements.define("smp-ph", class extends HTMLElement {
   handleSubmit(event) {
     event.preventDefault();
-    
     const form = event.target;
     const formdata = new FormData(form);
 
+    const smp = formdata.get("smp");
     const ph = formdata.get("ph");
 
-    const soil_ac = Math.max((6.6-ph)/(0.25), 0)
-    form["soil-ac"].value = soil_ac.toFixed(1);
-    const lre = (0.446 * ((0.1 * (soil_ac**2)) + soil_ac) * 2000);
+    const lre = Math.max(0,
+  		((8.38481203007521 + (smp * (-4.40576441102757)) + (ph * 3.5)) * 2000)
+    ) * 0.9906;
     form["lre"].value = lre.toLocaleString(undefined, {'maximumFractionDigits': 0});
 
     adjust_lre(lre, form, formdata);
@@ -22,12 +22,20 @@ customElements.define("mehlich-calc", class extends HTMLElement {
     this.insertAdjacentHTML("afterbegin", html`
       <form>
         <div class="grid">
-          <label for="ph"> Mehlich Buffer pH </label>
-          <input type="number" step="any" id="ph" name="ph">
+          <label for="smp">
+            <span data-tooltip="For best accuracy Buffer pH must be between 4.8 and 6.7">
+              SMP Buffer pH
+            </span>
+          </label>
+          <input type="number" step="any" id="smp" name="smp" min="0" max="14">
         </div>
         <div class="grid">
-          <label for="soil-ac">Soil Acidity (meq / 100 cm<sup>3</sup>) </label>
-          <input type="number" step="any" id="soil-ac" name="soil-ac" disabled>
+          <label for="ph">
+            <span data-tooltip="For best accuracy Target pH must be between 5.6 and 6.4">
+              Target pH
+            </span>
+          </label>
+          <input type="number" step="any" id="ph" name="ph" min="0" max="14">
         </div>
         <div class="grid">
           <label for="lre">Liming Requirement Estimate (lb/Ac) </label>
