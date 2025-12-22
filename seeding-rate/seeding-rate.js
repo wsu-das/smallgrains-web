@@ -47,7 +47,7 @@ customElements.define("seeding-rate", class extends HTMLElement {
             <input type="number" step="any" id="seeds-per-lb" name="seeds-per-lb">
           </div>
           <div class="grid">
-            <label for="germ-percent">2. Germination Percentage </label>
+            <label for="germ-percent">2. Germination percentage </label>
             <input type="number" step="any" id="germ-percent" name="germ-percent">
           </div>
           <div class="grid">
@@ -63,15 +63,15 @@ customElements.define("seeding-rate", class extends HTMLElement {
             <input type="number" step="any" id="rate" name="rate">
           </div>
           <div class="grid result">
-            <label for="lbs-per-ac">4. Pounds per Acre </label>
+            <label for="lbs-per-ac">4. Pounds per acre </label>
             <input type="text" id="lbs-per-ac" name="lbs-per-ac" readonly>
           </div>
           <div class="grid result">
-            <label for="seeds-per-sqft">5. Seeds per Square Foot </label>
+            <label for="seeds-per-sqft">5. Seeds per square foot </label>
             <input type="text" id="seeds-per-sqft" name="seeds-per-sqft" readonly>
           </div>
           <div class="grid result">
-            <label for="seeds-per-ac">6. Seeds per Acre </label>
+            <label for="seeds-per-ac">6. Seeds per acre </label>
             <input type="text" id="seeds-per-ac" name="seeds-per-ac" readonly>
           </div>
           <div class="grid">

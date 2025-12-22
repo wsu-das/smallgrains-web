@@ -179,7 +179,11 @@ customElements.define("straw-removal", class extends HTMLElement {
     const cce = html`<abbr title="Calcium Carbonate Equivalent (Ton)" data-tooltip="Calcium Carbonate Equivalent (Ton)">CCE</abbr>`;
     this.insertAdjacentHTML("afterbegin", html`
       <article>
-        <header>Straw Removal Calculator </header>
+        <header>
+          Straw Removal Calculator &mdash;
+          <a href="https://pubs.extension.wsu.edu/product/straw-removal-calculator-guide/">Guide</a>
+        </header>
+        
         <form>
           <section id="part-a">
             <label><strong> A: Estimate grain and straw yield from available moisture </strong></label>
